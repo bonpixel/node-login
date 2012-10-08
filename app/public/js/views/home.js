@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
 
+	var ac = new AccountController();
 	var hc = new HomeController();
 	var av = new AccountValidator();
 	
@@ -8,14 +9,14 @@ $(document).ready(function(){
 		beforeSubmit : function(formData, jqForm, options){
 			if (av.validateForm() == false){
 				return false;
-			} 	else{
+			}else{
 			// push the disabled username field onto the form data array //
 				formData.push({name:'user', value:$('#user-tf').val()})
 				return true;
 			}
 		},
 		success	: function(responseText, status, xhr, $form){
-			if (status == 'success') hc.onUpdateSuccess();
+			if (status == 'success') ac.onUpdateSuccess();
 		},
 		error : function(e){
 			if (e.responseText == 'email-taken'){
@@ -32,7 +33,7 @@ $(document).ready(function(){
 	
 	$('#account-form h1').text('Account Settings');
 	$('#account-form #sub1').text('Here are the current settings for your account.');
-	$('#user-tf').attr('disabled', 'disabled');
+	// $('#user-tf').attr('disabled', 'disabled');
 	$('#account-form-btn1').html('Delete');
 	$('#account-form-btn1').addClass('btn-danger');
 	$('#account-form-btn2').html('Update');

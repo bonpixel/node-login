@@ -1,6 +1,8 @@
+extends layout
 
-include account
-include modals/alert
+block pageContent
+  include account
+  include modals/alert
 
-script(src='/js/views/signup.js')
-script(src='/js/controllers/signupController.js')
+  script(src='/js/views/signup.js')
+  script(src='/js/controllers/signupController.js')

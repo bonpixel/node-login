@@ -1,17 +1,22 @@
 
 /**
- * Node.js Login Boilerplate
- * Author : Stephen Braitsch
- * More Info : http://bit.ly/LsODY8
+ * BitSmart Manager
+ * Author : Bryan Nichols
+ * More Info : tagcreativestudio.com
  */
 
 var exp = require('express');
 var app = exp.createServer();
 
 app.root = __dirname;
+var todays_weather = 'sunny';
+
 global.host = 'localhost';
 
+// Gimme the configz dude!
 require('./app/config')(app, exp);
+
+// Gimme the routez dude!
 require('./app/server/router')(app);
 
 app.listen(8080, function(){

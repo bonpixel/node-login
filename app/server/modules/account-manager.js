@@ -1,5 +1,4 @@
-
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt');
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
 
@@ -10,12 +9,12 @@ var dbName = 'login-testing';
 // use moment.js for pretty date-stamping //
 var moment = require('moment');
 
-var AM = {}; 
+var AM = {};
 	AM.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true}, {}));
 	AM.db.open(function(e, d){
 		if (e) {
 			console.log(e);
-		}	else{
+		}	else {
 			console.log('connected to database :: ' + dbName);
 		}
 	});
@@ -25,46 +24,43 @@ module.exports = AM;
 
 // logging in //
 
-AM.autoLogin = function(user, pass, callback)
-{
+AM.autoLogin = function(user, pass, callback) {
 	AM.accounts.findOne({user:user}, function(e, o) {
 		if (o){
 			o.pass == pass ? callback(o) : callback(null);
-		}	else{
+		}	else {
 			callback(null);
 		}
 	});
-}
+};
 
-AM.manualLogin = function(user, pass, callback)
-{
+AM.manualLogin = function(user, pass, callback) {
 	AM.accounts.findOne({user:user}, function(e, o) {
-		if (o == null){
+		if (o === null){
 			callback('user-not-found');
-		}	else{
+		}	else {
 			bcrypt.compare(pass, o.pass, function(err, res) {
 				if (res){
 					callback(null, o);
-				}	else{
+				}	else {
 					callback('invalid-password');
 				}
 			});
 		}
 	});
-}
+};
 
 // record insertion, update & deletion methods //
 
-AM.signup = function(newData, callback)
-{
+AM.signup = function(newData, callback) {
 	AM.accounts.findOne({user:newData.user}, function(e, o) {
 		if (o){
 			callback('username-taken');
-		}	else{
+		}	else {
 			AM.accounts.findOne({email:newData.email}, function(e, o) {
 				if (o){
 					callback('email-taken');
-				}	else{
+				}	else {
 					AM.saltAndHash(newData.pass, function(hash){
 						newData.pass = hash;
 					// append date stamp when record was created //
@@ -75,100 +71,89 @@ AM.signup = function(newData, callback)
 			});
 		}
 	});
-}
+};
 
-AM.update = function(newData, callback)
-{
+AM.update = function(newData, callback) {
 	AM.accounts.findOne({user:newData.user}, function(e, o){
-		o.name 		= newData.name;
-		o.email 	= newData.email;
-		o.country 	= newData.country;
-		if (newData.pass == ''){
+		o.name    = newData.name;
+		o.email   = newData.email;
+		o.country = newData.country;
+		if (newData.pass === ''){
 			AM.accounts.save(o); callback(o);
-		}	else{
+		}	else {
 			AM.saltAndHash(newData.pass, function(hash){
 				o.pass = hash;
 				AM.accounts.save(o); callback(o);
 			});
 		}
 	});
-}
+};
 
-AM.setPassword = function(email, newPass, callback)
-{
+AM.setPassword = function(email, newPass, callback) {
 	AM.accounts.findOne({email:email}, function(e, o){
 		AM.saltAndHash(newPass, function(hash){
 			o.pass = hash;
 			AM.accounts.save(o); callback(o);
 		});
 	});
-}
+};
 
-AM.validateLink = function(email, passHash, callback)
-{
+AM.validateLink = function(email, passHash, callback) {
 	AM.accounts.find({ $and: [{email:email, pass:passHash}] }, function(e, o){
 		callback(o ? 'ok' : null);
 	});
-}
+};
 
-AM.saltAndHash = function(pass, callback)
-{
+AM.saltAndHash = function(pass, callback) {
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(pass, salt, function(err, hash) {
 			callback(hash);
 		});
 	});
-}
+};
 
-AM.delete = function(id, callback)
-{
+AM.delete = function(id, callback) {
 	AM.accounts.remove({_id: this.getObjectId(id)}, callback);
-}
+};
 
 // auxiliary methods //
 
-AM.getEmail = function(email, callback)
-{
+AM.getEmail = function(email, callback) {
 	AM.accounts.findOne({email:email}, function(e, o){ callback(o); });
-}
+};
 
-AM.getObjectId = function(id)
-{
-	return AM.accounts.db.bson_serializer.ObjectID.createFromHexString(id)
-}
+AM.getObjectId = function(id) {
+	return AM.accounts.db.bson_serializer.ObjectID.createFromHexString(id);
+};
 
-AM.getAllRecords = function(callback)
-{
+AM.getAllRecords = function(callback) {
 	AM.accounts.find().toArray(
 		function(e, res) {
-		if (e) callback(e)
-		else callback(null, res)
+		if (e) callback(e);
+		else callback(null, res);
 	});
 };
 
-AM.delAllRecords = function(id, callback)
-{
+AM.delAllRecords = function(id, callback) {
 	AM.accounts.remove(); // reset accounts collection for testing //
-}
+};
 
 // just for testing - these are not actually being used //
 
-AM.findById = function(id, callback)
-{
+AM.findById = function(id, callback) {
 	AM.accounts.findOne({_id: this.getObjectId(id)},
 		function(e, res) {
-		if (e) callback(e)
-		else callback(null, res)
+		if (e) callback(e);
+		else callback(null, res);
 	});
 };
 
 
-AM.findByMultipleFields = function(a, callback)
-{
+AM.findByMultipleFields = function(a, callback) {
 // this takes an array of name/val pairs to search against {fieldName : 'value'} //
 	AM.accounts.find( { $or : a } ).toArray(
 		function(e, results) {
-		if (e) callback(e)
-		else callback(null, results)
+		if (e) callback(e);
+		else callback(null, results);
 	});
 }

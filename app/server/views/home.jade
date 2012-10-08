@@ -1,16 +1,58 @@
+extends layout
 
-div.navbar.navbar-fixed-top
-    div.navbar-inner
-        div.container-fluid
+block pageContent
+  div.container
+    div.row
+      div#main-header.span12
+        div.navbar-inner
+          div.container
             ul#global-nav.nav.pull-left
-                a(href='#').brand Control Panel
+              a(href='#').brand Control Panel
             button#btn-logout.btn.btn-primary
-                i.icon-lock.icon-white
-                | Sign Out
+              i.icon-lock.icon-white
+              | Sign Out
+              
+  div#contentPane
+    div.container
+      div.row
+        div.module.span3
+          h2
+            a(href='account', title='Accounts', class='module-link') Accounts
+        div.module.span3
+          h2
+            a(href='policy-profiles', title='Policy Profiles', class='module-link') Policy Profiles
+        div.module.span3
+          h2
+            a(href='qos-policy-profiles', title='QOS Policy Profiles', class='module-link') QOS Policy Profiles
+        div.module.span3
+          h2
+            a(href='reports', title='Reports', class='module-link') Reports
+      div.row
+        div.module.span3
+          h2
+            a(href='proxy', title='Proxy', class='module-link') Proxy
+        div.module.span3
+          h2
+            a(href='policy-service',title='Policy Service', class='module-link') Policy Service
+        div.module.span3
+          h2
+            a(href='server', title='Server', class='module-link') Server
+        div.module.span3
+          h2
+            a(href='registration', title='Registration', class='module-link') Registration
+      div.row
+        div.module.span3
+          h2
+            a(href='user', title='User', class='module-link') User
+        div.module.span3
+          h2
+            a(href='client', title='Client', class='module-link') Client      
+        
+      include modals/alert
+      include modals/confirm
 
-include account
-include modals/alert
-include modals/confirm
+append afterContent
+  //- include partials/footer
 
-script(src='/js/views/home.js')
-script(src='/js/controllers/homeController.js')
+  //- script(src='/js/views/home.js')
+  //- script(src='/js/controllers/homeController.js')
