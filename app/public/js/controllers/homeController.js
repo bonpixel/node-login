@@ -6,7 +6,7 @@ function HomeController() {
 
   window.onpopstate = function(e){
     if(e.state){
-      console.log(e.state);
+      // console.log(e.state);
       document.getElementById("contentPane").innerHTML = e.state.html;
       // document.title = e.state.pageTitle;
     }
@@ -28,7 +28,7 @@ function HomeController() {
       // data: {user : 'bob'},
       success: function(data){
         $('#contentPane').html(data);
-        console.log(data);
+        // console.log(data);
         window.history.pushState({"html":data},"", '/account');
       },
       error: function(jqXHR){

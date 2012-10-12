@@ -21,7 +21,6 @@ module.exports = function(dependencies) {
   }
 
   function post(req, res) {
-    console.log(req);
     res.render('account', {
       locals: {
         title : 'Control Panel',

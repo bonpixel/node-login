@@ -8,11 +8,11 @@ $(document).ready(function(){
 
 	$('#login-form').ajaxForm({
 		beforeSubmit : function(formData, jqForm, options){
-			if (lv.validateForm() == false){
+			if (lv.validateForm() === false) {
 				return false;
-			} 	else{
+			} else {
 			// append 'remember-me' option to formData to write local cookie //
-				formData.push({name:'remember-me', value:$("input:checkbox:checked").length == 1})
+				formData.push({name:'remember-me', value:$("input:checkbox:checked").length == 1});
 				return true;
 			}
 		},
@@ -20,9 +20,9 @@ $(document).ready(function(){
 			if (status == 'success') window.location.href = '/home';
 		},
 		error : function(e){
-            lv.showLoginError('Login Failure', 'Please check your username and/or password');
+      lv.showLoginError('Login Failure', 'Please check your username and/or password');
 		}
-	}); 
+	});
 	$('#user-tf').focus();
 	
 // login retrieval form via email //
@@ -35,7 +35,7 @@ $(document).ready(function(){
 			if (ev.validateEmail($('#email-tf').val())){
 				ev.hideEmailAlert();
 				return true;
-			}	else{
+			}	else {
 				ev.showEmailAlert("<b> Error!</b> Please enter a valid email address");
 				return false;
 			}
@@ -47,5 +47,4 @@ $(document).ready(function(){
 			ev.showEmailAlert("Sorry. There was a problem, please try again later.");
 		}
 	});
-	
-})
+});

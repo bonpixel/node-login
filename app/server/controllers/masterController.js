@@ -13,7 +13,7 @@ module.exports = function(app) {
     get: function(req, res){
       // check if the user's credentials are saved in a cookie //
       if (req.cookies.user === undefined || req.cookies.pass === undefined){
-        console.log(app);
+        // console.log(app);
         res.render(
           'login',
           { locals: {
@@ -270,7 +270,7 @@ module.exports = function(app) {
       }
     },
     post: function(req, res) {
-      console.log(req);
+      // console.log(req);
       res.render('account', {
         locals: {
           title : 'Control Panel',

@@ -1,0 +1,34 @@
+//
+// MastHead Template
+//
+
+div(id="mastHead")
+  div(class="container")
+    hgroup
+      h1 BitSmart Manager
+      h2 Powered by Centri
+
+    block userDetails
+      div(id="user", class="span3")
+        // User name
+        h3 Default Username
+
+        // userDetails
+        div(class="userDetails")
+          p Here is some more info about the user
+
+        // Image
+        img(src="/images/defualtuser.png")
+
+    div(id="util", class="span3")
+      // SearchBar
+      input(id="search", type="textarea")
+
+      // Settings
+      button(id="settings")
+        | X
+
+      // Help
+      button(id="help")
+        | X
+

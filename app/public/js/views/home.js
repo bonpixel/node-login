@@ -7,11 +7,11 @@ $(document).ready(function(){
 	
 	$('#account-form').ajaxForm({
 		beforeSubmit : function(formData, jqForm, options){
-			if (av.validateForm() == false){
+			if (av.validateForm() === false){
 				return false;
 			}else{
 			// push the disabled username field onto the form data array //
-				formData.push({name:'user', value:$('#user-tf').val()})
+				formData.push({name:'user', value:$('#user-tf').val()});
 				return true;
 			}
 		},
@@ -19,10 +19,10 @@ $(document).ready(function(){
 			if (status == 'success') ac.onUpdateSuccess();
 		},
 		error : function(e){
-			if (e.responseText == 'email-taken'){
-			    av.showInvalidEmail();
-			}	else if (e.responseText == 'username-taken'){
-			    av.showInvalidUserName();
+			if (e.responseText === 'email-taken'){
+				av.showInvalidEmail();
+			}	else if (e.responseText === 'username-taken'){
+				av.showInvalidUserName();
 			}
 		}
 	});

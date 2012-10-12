@@ -1,0 +1,22 @@
+- var title = (title != undefined) ? title : 'title';
+
+block paneHead
+  div(class="paneHead")
+    div(class="container")
+      header
+        h1 title
+        button(id="gridview", class="btn") grid
+
+      div(class="breadcrumb")
+        nav
+          p
+            - for(var i = 0; i < 5; ++i)
+              a(href="/") Main #{+ i }
+              | &nbsp;>&nbsp;
+
+// module name
+// breadcrumb
+// horizontal rule
+// back to grid button
+// other block content
+// get the name of the module that you clicked and use it as the title.

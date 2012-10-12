@@ -9,21 +9,14 @@ var EM = require('./modules/email-dispatcher');
 var FB = require('./modules/form-builder');
 
 
-
 var Controller = require('./controllers/masterController');
-
-
 
 module.exports = function(app) {
 
-  var controller = new Controller(app);
-
-  var Controller2 = require('./controllers/masterController')(app);
-  console.log(Controller2);
+  var controller = {};
   
-
   controller.index          = require('./controllers/indexController')          ( { AM:AM } );
-  // controller.account     = require('./controllers/accountController')        ( { CT:CT } );
+  controller.account        = require('./controllers/accountController')        ( { CT:CT } );
   controller.home           = require('./controllers/homeController')           ( { AM:AM, CT:CT } );
   controller.signup         = require('./controllers/signupController')         ( { AM:AM, CT:CT } );
   controller.lost_password  = require('./controllers/lostPasswordController')   ( { AM:AM, EM:EM } );

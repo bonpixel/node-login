@@ -1,13 +1,29 @@
 - var pane_view = (pane_view != 'undefined') ? pane_view : 'home';
+//- - var data = { title: 'this is a title', data: 'this is some data' };
+
 
 !!!
 html
   head
     include partials/meta
+      // Meta information for the site
     include partials/css
+      // CSS for the site
+    script(data-main="/js/main.js", src="/js/require.js")
     include partials/scripts
+      // Any scripts that need to be loaded before the content
 
   body(class=pane_view)
-    block pageContent
+    include partials/mastHead
+      // Site-wide Masthead
+
+    block pane
+      // This block includes the header
+      // and the content of the pane
+    
     block afterContent
+      // Include anything in here that you would
+      // would like after the main content
+      // eg defered scripts, etc
+
       include partials/footer

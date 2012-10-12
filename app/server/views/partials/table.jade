@@ -1,0 +1,17 @@
+- data = (typeof(data) != 'undefined') ? data : {};
+//- - user = typeof(udata) != 'undefined' ? udata : {}
+
+//- this recieves the number of columns for any given table row
+//- and then builds out the HTMl for them
+
+table(class='table table-striped table-bordered')
+  thead
+    tr
+      - for( var i = 0; i < 5; ++i )
+        th #{(data.title || 'Not Defined')}
+  tbody
+    - for( var i = 0; i < 5; ++i )
+      tr
+        - for( var j = 0; j < 5; ++j )
+          td #{(data.title || 'Not Defined')}
+  
